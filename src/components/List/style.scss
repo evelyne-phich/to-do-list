@@ -1,0 +1,17 @@
+.list li {
+  padding: 20px;
+  background-color: #EEEEEE;
+  border-radius: 5px;
+  margin-top: 12px;
+  text-align: left;
+
+  &:hover {
+    background-color: #EEEEEE;
+    cursor: pointer;
+  }
+
+  .list-item--done {
+    text-decoration: line-through;
+  }
+}
+
