@@ -41,6 +41,7 @@ List.propTypes = {
       done: PropTypes.bool.isRequired,
     })
   ).isRequired,
+  onCheckedChange: PropTypes.func.isRequired,
 };
 
 export default List;

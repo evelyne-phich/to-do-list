@@ -15,6 +15,7 @@ class App extends React.Component {
 
   state = {
     tasksList: tasksArray,
+    inputText: "",
   };
 
   componentDidMount() {
@@ -37,20 +38,28 @@ class App extends React.Component {
     localStorage.setItem("tasksList", JSON.stringify(tasksList));
   }
 
-  handleSubmitTask = (newTaskLabel) => {
-    const { tasksList } = this.state;
-    const tasksIdsList = tasksList.map((task) => task.id);
-    const maxId = Math.max(...tasksIdsList);
+  handleInputChange = (text) => {
+    this.setState({ inputText: text });
+  };
 
-    const newTask = {
-      id: maxId + 1,
-      label: newTaskLabel,
-      done: false,
-    };
+  handleTaskSubmit = () => {
+    const { tasksList, inputText } = this.state;
 
-    this.setState({
-      tasksList: [newTask, ...tasksList],
-    });
+    if (inputText) {
+      const tasksIdsList = tasksList.map((task) => task.id);
+      const maxId = Math.max(...tasksIdsList);
+
+      const newTask = {
+        id: maxId + 1,
+        label: inputText,
+        done: false,
+      };
+
+      this.setState({
+        tasksList: [newTask, ...tasksList],
+        inputText: "",
+      });
+    }
   };
 
   getCounter = () => {
@@ -85,11 +94,15 @@ class App extends React.Component {
   };
 
   render() {
-    const { tasksList } = this.state;
+    const { tasksList, inputText } = this.state;
 
     return (
       <div className="app">
-        <AddTaskInput onSubmitTask={this.handleSubmitTask} />
+        <AddTaskInput
+          inputText={inputText}
+          onInputChange={this.handleInputChange}
+          onTaskSubmit={this.handleTaskSubmit}
+        />
         <Counter counter={this.getCounter()} />
         <List
           tasksList={tasksList}
