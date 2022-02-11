@@ -3,7 +3,9 @@
   background-color: #EEEEEE;
   border-radius: 5px;
   margin-top: 12px;
+  margin-right: 1rem;
   text-align: left;
+  width: 100%;
 
   &:hover {
     background-color: #EEEEEE;
@@ -15,3 +17,16 @@
   }
 }
 
+.task {
+  display: flex;
+  align-items: center;
+}
+
+.clearIcon {
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.3);
+  }
+}

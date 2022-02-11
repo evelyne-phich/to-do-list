@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import "./style.scss";
+import ClearIcon from "../../assets/icons/ClearIcon";
 
-const List = ({ tasksList, onCheckedChange }) => (
+const List = ({ tasksList, onCheckedChange, onClearIconClick }) => (
   <ul className="list">
     {tasksList
       .sort((task1, task2) => {
@@ -15,20 +16,28 @@ const List = ({ tasksList, onCheckedChange }) => (
         return 0;
       })
       .map((task) => (
-        <li key={task.id}>
-          <label
-            className={task.done ? "list-item list-item--done" : "list-item"}
-          >
-            <input
-              type="checkbox"
-              onChange={() => {
-                onCheckedChange(task.id);
-              }}
-              checked={task.done}
-            />
-            {task.label}
-          </label>
-        </li>
+        <div key={task.id} className="task">
+          <li>
+            <label
+              className={task.done ? "list-item list-item--done" : "list-item"}
+            >
+              <input
+                type="checkbox"
+                onChange={() => {
+                  onCheckedChange(task.id);
+                }}
+                checked={task.done}
+              />
+              {task.label}
+            </label>
+          </li>
+          <ClearIcon
+            className={"clearIcon"}
+            onClick={() => {
+              onClearIconClick(task.id);
+            }}
+          />
+        </div>
       ))}
   </ul>
 );
@@ -36,7 +45,7 @@ const List = ({ tasksList, onCheckedChange }) => (
 List.propTypes = {
   tasksList: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       done: PropTypes.bool.isRequired,
     })

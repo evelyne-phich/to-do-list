@@ -1,12 +1,11 @@
 // == Import
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import "./styles.css";
 
 import AddTaskInput from "../AddTaskInput";
 import Counter from "../Counter";
 import List from "../List";
-
-import tasksArray from "../../data/tasks";
 
 class App extends React.Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class App extends React.Component {
   }
 
   state = {
-    tasksList: tasksArray,
+    tasksList: [],
     inputText: "",
   };
 
@@ -46,11 +45,8 @@ class App extends React.Component {
     const { tasksList, inputText } = this.state;
 
     if (inputText) {
-      const tasksIdsList = tasksList.map((task) => task.id);
-      const maxId = Math.max(...tasksIdsList);
-
       const newTask = {
-        id: maxId + 1,
+        id: uuidv4(),
         label: inputText,
         done: false,
       };
@@ -93,11 +89,24 @@ class App extends React.Component {
     }
   };
 
+  handleClearIconClick = (taskIdToDelete) => {
+    const { tasksList } = this.state;
+
+    const filteredTasksList = tasksList.filter(
+      (task) => task.id !== taskIdToDelete
+    );
+
+    this.setState({
+      tasksList: [...filteredTasksList],
+    });
+  };
+
   render() {
     const { tasksList, inputText } = this.state;
 
     return (
       <div className="app">
+        <h1 className="title">To-do list</h1>
         <AddTaskInput
           inputText={inputText}
           onInputChange={this.handleInputChange}
@@ -107,6 +116,7 @@ class App extends React.Component {
         <List
           tasksList={tasksList}
           onCheckedChange={this.handleCheckedChanged}
+          onClearIconClick={this.handleClearIconClick}
         />
       </div>
     );
