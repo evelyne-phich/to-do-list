@@ -6,12 +6,17 @@
   margin-right: 1rem;
   text-align: left;
   width: 100%;
+  color: #0F3B30;
 
   &:hover {
     background-color: #EEEEEE;
     cursor: pointer;
   }
 
+  .list-item {
+    word-break: break-word;
+  }
+  
   .list-item--done {
     text-decoration: line-through;
   }
@@ -20,6 +25,10 @@
 .task {
   display: flex;
   align-items: center;
+
+  input {
+    margin-right: 1rem;
+  }
 }
 
 .clearIcon {
