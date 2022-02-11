@@ -15,8 +15,9 @@
 
   .list-item {
     word-break: break-word;
+    display: flex;
   }
-  
+
   .list-item--done {
     text-decoration: line-through;
   }
